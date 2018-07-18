@@ -3,8 +3,11 @@ import Loader from '../../components/Loader';
 import { Link } from 'react-router-dom';
 
 class SingleSeries extends Component {
-    state = {
-        show: null
+    constructor(props) {
+        super(props);
+        this.state = {
+            show: null
+        }
     }
 
     componentDidMount() {
@@ -13,6 +16,31 @@ class SingleSeries extends Component {
             .then(response => response.json())
             .then(json => this.setState({ show: json }));
     }
+
+    modifydata = (episodes) => {
+        let eisodesLength = episodes.length
+        let modifiedDataList = []
+        let episodeList = []
+        let oldSeason = 1
+        episodes.forEach((episode, index) => {
+            if (index !== eisodesLength - 1) {
+                if (episode.season === oldSeason) {
+                    episodeList.push(episode)
+                } else {
+                    modifiedDataList.push(episodeList)
+                    oldSeason = episode.season
+                    episodeList = []
+                }
+            } else {
+                modifiedDataList.push(episodeList)
+                oldSeason = episode.season
+                episodeList = []
+            }
+
+        });
+        return modifiedDataList
+    }
+
     render() {
         if (this.state.show === null) {
             return false;
@@ -20,9 +48,9 @@ class SingleSeries extends Component {
 
             const { show } = this.state;
             console.log(show)
-            // const { id } = this.props.match.params;
 
             const episodes = show._embedded.episodes
+            const modifiedData = this.modifydata(episodes)
 
             return (
                 <div>
@@ -39,16 +67,20 @@ class SingleSeries extends Component {
                                 <img alt='Show' src={show.image.medium} />
                             </p>
                             <p>Seasons</p>
-                            {episodes.map((episode) => {
+
+                            <p>Episodes</p>
+                            {modifiedData.map((episodes, index) => {
                                 return (
-                                    <div key={episode.id}>
-                                        <p>{episode.season}</p>
-                                        <p><span>Official Site-</span> 
-                                        <Link to={episode.url}>
-                                            {episode.name}
-                                        </Link>
-                                        </p>
-                                        
+                                    <div key={index}>
+                                        <p>Season {index + 1}</p>
+                                        {episodes.map((episode, index) => {
+                                            return (
+                                                <p key={index}><span>Official Site - {episode.url}</span></p>
+                                            )
+                                        }
+                                        )}
+
+
                                     </div>)
                             })}
                         </div>
