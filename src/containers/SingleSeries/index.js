@@ -77,7 +77,6 @@ class SingleSeries extends Component {
                                                 <Link to={`/series/${show.id}/${episode.id}`}>
                                                 {episode.name}
                                                 </Link>
-                                                {/* <a href={episode.url}>{episode.name}</a> */}
                                                 </p>
                                             )
                                         }

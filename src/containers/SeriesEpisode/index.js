@@ -40,11 +40,11 @@ class SeriesEpisode extends Component {
                         <div>
                             <p><strong>{show.name}</strong></p>
                             <p>Airdate - {episode_info.airdate}</p>
-                            <p>Episode Name - {episode_info.name}</p>
+                            <p>Episode Name - <strong>{episode_info.name}</strong></p>
                             <p>
                                 <img alt='Show' src={episode_info.image.medium} />
                             </p>
-                            Summary - {episode_info.summary.substring(3, episode_info.summary.length - 4)}
+                            <span><strong>Summary</strong> - {episode_info.summary.substring(3, episode_info.summary.length - 4)}</span>
                         </div>
                     }
 
