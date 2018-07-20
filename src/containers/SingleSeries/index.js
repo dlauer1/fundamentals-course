@@ -11,7 +11,7 @@ class SingleSeries extends Component {
     }
 
     componentDidMount() {
-
+        console.log(this.props.match.params)
         fetch(`http://api.tvmaze.com/shows/${this.props.match.params.id}?embed=episodes`)
             .then(response => response.json())
             .then(json => this.setState({ show: json }));
@@ -66,21 +66,22 @@ class SingleSeries extends Component {
                             <p>
                                 <img alt='Show' src={show.image.medium} />
                             </p>
-                            <p>Seasons</p>
 
-                            <p>Episodes</p>
                             {modifiedData.map((episodes, index) => {
                                 return (
                                     <div key={index}>
-                                        <p>Season {index + 1}</p>
+                                        <p><strong>Season {index + 1}</strong></p>
                                         {episodes.map((episode, index) => {
                                             return (
-                                                <p key={index}><span>Official Site - {episode.url}</span></p>
+                                                <p key={index}><span>Official Site - </span>
+                                                <Link to={`/series/${show.id}/${episode.id}`}>
+                                                {episode.name}
+                                                </Link>
+                                                {/* <a href={episode.url}>{episode.name}</a> */}
+                                                </p>
                                             )
                                         }
                                         )}
-
-
                                     </div>)
                             })}
                         </div>
