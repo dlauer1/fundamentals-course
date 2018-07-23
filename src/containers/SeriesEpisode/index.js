@@ -31,20 +31,19 @@ class SeriesEpisode extends Component {
             const ep_num = this.props.match.url.split('/')[3]
 
             let episode_info = episodes.filter((el) => el.id == ep_num)[0]
-            // episodes.map((el)=>{console.log(el.id)})
             console.log('ep_info', episode_info)
             return (
 
                 <div>
                     {
                         <div>
-                            <p><strong>{show.name}</strong></p>
-                            <p>Airdate - {episode_info.airdate}</p>
+                            <p style={{fontSize: '200%'}}><strong>{show.name}</strong></p>
+                            <p>Airdate - <strong>{episode_info.airdate}</strong></p>
                             <p>Episode Name - <strong>{episode_info.name}</strong></p>
                             <p>
                                 <img alt='Show' src={episode_info.image.medium} />
                             </p>
-                            <span><strong>Summary</strong> - {episode_info.summary.substring(3, episode_info.summary.length - 4)}</span>
+                            <div style={{backgroundColor: '#fff', margin: '0 auto', width: '20%'}}><strong>Summary</strong> - <br />{episode_info.summary.substring(3, episode_info.summary.length - 4)}</div>
                         </div>
                     }
 

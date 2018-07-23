@@ -26,6 +26,7 @@ class Series extends Component {
                 <div>
                     <input
                         value={seriesName}
+                        placeholder='Search'
                         type='text'
                         onChange={this.onSeriesInputChange} />
                 </div>
